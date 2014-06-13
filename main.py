@@ -26,16 +26,16 @@ from models import Weatherpic
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)), autoescape=True)
 
 # Generic key used to group MovieQuotes into an entity group.
-_PARENT_KEY = ndb.Key("Entity", 'weatherpic_root')
+PARENT_KEY = ndb.Key("Entity", 'weatherpic_root')
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        weatherpics = Weatherpic.query(ancestor=_PARENT_KEY).order(-Weatherpic.last_touch_date_time).fetch()
+        weatherpics = Weatherpic.query(ancestor=PARENT_KEY).order(-Weatherpic.last_touch_date_time).fetch()
         template = jinja_env.get_template("templates/weatherpics.html")
         self.response.out.write(template.render({'weatherpics': weatherpics}))
 
     def post(self):
-        new_weather_pic = Weatherpic(parent=_PARENT_KEY,
+        new_weather_pic = Weatherpic(parent=PARENT_KEY,
                                image_url=self.request.get('image_url'),
                                caption=self.request.get('caption'))
         new_weather_pic.put()
