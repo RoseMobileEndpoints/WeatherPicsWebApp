@@ -3,7 +3,7 @@ from google.appengine.ext import ndb
 # TODO: Convert this non-Endpoints version to use Endpoint Models!
 
 
-class WeatherPic(ndb.Model):
+class Weatherpic(ndb.Model):
     """ Model to store a WeatherPic. """
     image_url = ndb.StringProperty()
     caption = ndb.StringProperty()
